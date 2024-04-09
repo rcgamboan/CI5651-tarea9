@@ -23,11 +23,11 @@ def min_vertex_cover(G):
     while E:  
         
         # Selecciona una arista aleatoria. Tiempo: O(1)
-        arista = random.choice(list(E))
-        V.add(arista)
+        u,v = random.choice(list(E))
+        V.add(u)
+        V.add(v)
         
         # Elimina las aristas que estan conectadas a los vertices seleccionados
-        u,v = arista[0], arista[1]
         E -= set(G.edges([u, v]))  
 
     return V
