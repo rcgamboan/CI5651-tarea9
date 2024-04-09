@@ -3,6 +3,7 @@
 # Tarea 9. Ejercicio 3
 
 import random
+import networkx as nx
 
 # Algoritmo probabilistico para encontrar una aproximacion 
 # del conjunto de vertices de una cubierta de vertices de un grafo
@@ -12,7 +13,7 @@ import random
 # selecciona aleatoriamente una arista y agrega ambos vertices
 # al conjunto de vertices cubiertos. Luego, elimina todas las aristas
 # Retorna el conjunto de vertices cubiertos.
-def approx_vertex_cover_probabilistic(G): 
+def min_vertex_cover(G): 
     
     # Inicializa el conjunto de vertices y aristas
     V = set()
@@ -22,12 +23,19 @@ def approx_vertex_cover_probabilistic(G):
     while E:  
         
         # Selecciona una arista aleatoria. Tiempo: O(1)
-        u, v = random.choice(list(E))
-
-        V.add(u)
-        V.add(v)
+        arista = random.choice(list(E))
+        V.add(arista)
         
         # Elimina las aristas que estan conectadas a los vertices seleccionados
+        u,v = arista[0], arista[1]
         E -= set(G.edges([u, v]))  
 
     return V
+
+G = nx.Graph()
+G.add_edges_from([(1, 2), (2, 3), (3, 4), (4, 5)])
+G.add_edges_from([(1, 4), (5, 7), (7, 8),(3,1),(4,2)])
+
+vertex_cover = min_vertex_cover(G)
+
+print("Aristas del minimo cubrimiento:", vertex_cover)
